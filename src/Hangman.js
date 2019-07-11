@@ -17,7 +17,12 @@ class Hangman extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { nWrong: 0, guessed: new Set(), answer: "apple" };
+    this.state = { 
+      nWrong: 0, 
+      guessed: new Set(), 
+      answer: "apple" 
+    };
+    
     this.handleGuess = this.handleGuess.bind(this);
   }
 
@@ -25,9 +30,10 @@ class Hangman extends Component {
     if guessed letters are {a,p,e}, show "app_e" for "apple"
   */
   guessedWord() {
-    return this.state.answer
+    let gw = this.state.answer
       .split("")
       .map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"));
+      console.log(gw)
   }
 
   /** handleGuest: handle a guessed letter:
@@ -46,6 +52,7 @@ class Hangman extends Component {
   generateButtons() {
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
       <button
+        key={ltr}
         value={ltr}
         onClick={this.handleGuess}
         disabled={this.state.guessed.has(ltr)}
