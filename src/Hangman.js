@@ -34,6 +34,7 @@ class Hangman extends Component {
       .split("")
       .map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"));
       console.log(gw)
+      return gw
   }
 
   /** handleGuest: handle a guessed letter:
@@ -68,9 +69,13 @@ class Hangman extends Component {
       <div className='Hangman'>
         <h1>Hangman</h1>
         <img src={this.props.images[this.state.nWrong]} />
-        <p>Guessed Wrong: {this.state.nWrong} </p>
-        <p className='Hangman-word'>{this.guessedWord()}</p>
-        <p className='Hangman-btns'>{this.generateButtons()}</p>
+        <p>Guessed Wrong: {this.state.nWrong}</p>
+        <p className='Hangman-word'>
+          {this.state.nWrong < this.props.maxWrong ? this.guessedWord() : this.state.answer}
+        </p>
+        <p className='Hangman-btns'>
+          {this.state.nWrong < this.props.maxWrong ? this.generateButtons() : 'GameOver'}
+        </p>
       </div>
     );
   }
