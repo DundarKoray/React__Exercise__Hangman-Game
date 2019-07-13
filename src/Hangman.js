@@ -26,6 +26,7 @@ class Hangman extends Component {
     };
     
     this.handleGuess = this.handleGuess.bind(this);
+    this.reset = this.reset.bind(this)
   }
 
   /** guessedWord: show current-state of word:
@@ -65,6 +66,14 @@ class Hangman extends Component {
     ));
   }
 
+  reset() {
+    this.setState({
+      nWrong: 0,
+      guessed: new Set(),
+      answer: randomWord()
+    })
+  } 
+
   /** render: render game */
   render() {
     const altText = `${this.state.nWrong}/${this.props.maxWrong} guesses`
@@ -82,6 +91,7 @@ class Hangman extends Component {
         <p className="last_chance">
           {(this.state.nWrong + 1) === this.props.maxWrong ? 'Becarefull Your Last Chance' : null }
         </p>
+        <button onClick={()=>this.reset()}>Restart</button>
       </div>
     );
   }
