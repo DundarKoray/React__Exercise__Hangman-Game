@@ -22,7 +22,8 @@ class Hangman extends Component {
     this.state = { 
       nWrong: 0, 
       guessed: new Set(), 
-      answer: randomWord()
+      answer: randomWord(),
+      isVictory: false
     };
     
     this.handleGuess = this.handleGuess.bind(this);
@@ -77,20 +78,32 @@ class Hangman extends Component {
   /** render: render game */
   render() {
     const altText = `${this.state.nWrong}/${this.props.maxWrong} guesses`
+    const isWinner = this.guessedWord().join("") === this.state.answer
+    const gameOver = this.state.nWrong >= this.props.maxWrong
+
+    let gameState = this.generateButtons()
+    if(isWinner) gameState = <div className="last_chance green win">You win</div>
+    if(gameOver) gameState = <div className="last_chance red">You lost</div>
+
     return (
       <div className='Hangman'>
         <h1>Hangman</h1>
         <img src={this.props.images[this.state.nWrong]} alt={altText} />
         <p>Guessed Wrong: {this.state.nWrong}</p>
         <p className='Hangman-word'>
-          {this.state.nWrong < this.props.maxWrong ? this.guessedWord() : this.state.answer}
+          {!gameOver ? this.guessedWord() : this.state.answer}
         </p>
         <p className='Hangman-btns'>
-          {this.state.nWrong < this.props.maxWrong ? this.generateButtons() : 'GameOver'}
+          {gameState}
         </p>
-        <p className="last_chance">
+        
+        {(!isWinner) ?
+        <p className="last_chance red">
           {(this.state.nWrong + 1) === this.props.maxWrong ? 'Becarefull Your Last Chance' : null }
         </p>
+        : null
+        }
+        
         <button id="reset" onClick={()=>this.reset()}>Restart</button>
       </div>
     );
