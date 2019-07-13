@@ -96,3 +96,13 @@
   -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;
 }
+
+#reset {
+  width: auto;
+  background: green;
+  box-shadow: 0 6px darkgreen;
+}
+
+#reset:hover {
+  background: darkgreen;
+}

@@ -91,7 +91,7 @@ class Hangman extends Component {
         <p className="last_chance">
           {(this.state.nWrong + 1) === this.props.maxWrong ? 'Becarefull Your Last Chance' : null }
         </p>
-        <button onClick={()=>this.reset()}>Restart</button>
+        <button id="reset" onClick={()=>this.reset()}>Restart</button>
       </div>
     );
   }
